@@ -46,7 +46,6 @@ const loadCartFromStorage = (userId) => {
 };
 
 const cartReducer = (state, action) => {
-  console.log(state)
   switch (action.type) {
     case 'ADD_TO_CART': {
       const existingItem = state.items.find(item => item.id === action.payload.id);

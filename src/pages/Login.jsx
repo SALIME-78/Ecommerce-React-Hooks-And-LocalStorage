@@ -11,12 +11,6 @@ const Login = () => {
   const navigate = useNavigate();
   const { login, user } = useAuth();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,8 +30,8 @@ const Login = () => {
       
       toast.success('Login successful');
       return setTimeout(() => {
-        location.reload();
-      }, 1100)
+        navigate('/');
+      }, 1200)
       
     } catch (error) {
       toast.error(error.message);

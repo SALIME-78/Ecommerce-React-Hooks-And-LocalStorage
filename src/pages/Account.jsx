@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 const Account = () => {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -45,6 +45,7 @@ const Account = () => {
     }
   };
 
+  const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     return (
     <div className="relative">

@@ -54,7 +54,7 @@ export function  AuthProvider({ children }) {
     const  newUser = { id:  users.length + 1, name, email, password: hashedPassword };
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
-    dispatch({ type: 'LOGIN', payload: newUser });
+    dispatch({ type: 'REGISTER', payload: newUser });
     return true
     }
 
