@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link}  from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -9,14 +9,19 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const parsedUsers =  JSON.parse(localStorage.getItem('users'));
-    console.log(parsedUsers)
-
+  
     if (!email || !password) {
       toast.error('Please fill in all fields');
       return;
@@ -30,10 +35,9 @@ const Login = () => {
       }
       
       toast.success('Login successful');
-      navigate('/');
       return setTimeout(() => {
         location.reload();
-      }, 900)
+      }, 1100)
       
     } catch (error) {
       toast.error(error.message);

@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 import { coupons } from '../data/coupons';
@@ -47,6 +46,7 @@ const loadCartFromStorage = (userId) => {
 };
 
 const cartReducer = (state, action) => {
+  console.log(state)
   switch (action.type) {
     case 'ADD_TO_CART': {
       const existingItem = state.items.find(item => item.id === action.payload.id);
@@ -64,7 +64,6 @@ const cartReducer = (state, action) => {
           ? state.appliedCoupon.discount 
           : subtotal * (state.appliedCoupon.discount / 100)
         : 0;
-
       return {
         ...state,
         items: updatedItems,
@@ -153,6 +152,7 @@ export function CartProvider({ children }) {
 
   // Load cart from localStorage when component mounts or user changes
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
     if (user?.id) {
       const savedState = loadCartFromStorage(user.id);
       if (savedState.items.length > 0) {
@@ -171,18 +171,28 @@ export function CartProvider({ children }) {
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
     if (user?.id) {
       localStorage.setItem(`cart_${user.id}`, JSON.stringify(state));
     }
   }, [state, user]);
 
-  const addToCart = (product) => {
+  const addToCart = async(product) => {
     if (!user) {
       toast.error('Please login to add items to cart');
       return;
     }
     if (!product) return;
-    dispatch({ type: 'ADD_TO_CART', payload: product });
+    else {
+      const cart = localStorage.getItem(`cart_${user.id}`);
+      if (cart) {
+        const parsedCart = await JSON.parse(cart);
+        parsedCart.items.push(product);
+        localStorage.setItem(`cart_${user.id}`, JSON.stringify(parsedCart));
+      }
+      dispatch({ type: 'ADD_TO_CART', payload: product });
+
+    }
     toast.success('Item added to cart');
   };
 
