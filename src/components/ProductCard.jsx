@@ -29,6 +29,10 @@ let ProductCard = ({
   const handleAddToCart = () => {
     if (user) {
       setInCart(true);
+      if (inCart) {
+        toast.error("Item already in cart!");
+        return;
+      }
       addToCart({ id, name, price, rating, reviews, image });
     } else {
       toast.error("Please login to add to cart");
