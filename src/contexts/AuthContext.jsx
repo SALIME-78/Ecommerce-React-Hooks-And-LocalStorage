@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import bcrypt from 'bcryptjs'
+import { toast } from "react-toastify";
 
 const AuthContext  = createContext();
 
@@ -48,6 +49,7 @@ export function  AuthProvider({ children }) {
     const existingUser = users.find(user => user.email === email);
 
     if(existingUser) {
+      toast.error('Email already exists');
       return false
     }
 
