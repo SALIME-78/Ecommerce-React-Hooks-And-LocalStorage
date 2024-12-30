@@ -19,11 +19,11 @@ const Account = () => {
   const navigate = useNavigate();
 
   const handleLogin = async() => {
-    navigate('/login');
+    return navigate('/login');
   };
 
   const handleSignup = async() => {
-    navigate('/signup');
+    return navigate('/signup');
   }
 
   const menuItems = [

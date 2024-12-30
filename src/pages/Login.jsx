@@ -11,32 +11,35 @@ const Login = () => {
   const navigate = useNavigate();
   const { login, user } = useAuth();
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const parsedUsers =  JSON.parse(localStorage.getItem('users'));
-  
     if (!email || !password) {
       toast.error('Please fill in all fields');
       return;
     }
 
-    try {
-      await login(email, password);
-      if(!parsedUsers.find(user => user.email === email)) {
-        toast.error('Invalid email or password');
-        navigate('/signup');
-      }
-      
-      toast.success('Login successful');
-      return setTimeout(() => {
-        navigate('/');
-      }, 1200)
-      
-    } catch (error) {
-      toast.error(error.message);
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(u => u.email === email);
+
+    if (!user) {
+      return toast.error('User not found !'); 
     }
-  }; 
+
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigate('/');
+      } else {
+        return toast.error('Invalid email or password');
+      }
+    } catch (error) {
+      console.error(error);
+      return toast.error('Login failed');
+    }
+    }
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white rounded-lg shadow-lg max-w-6xl w-full flex flex-col md:flex-row">

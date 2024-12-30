@@ -38,8 +38,9 @@ export function  AuthProvider({ children }) {
       const  storedUser = localStorage.setItem('user',  JSON.stringify(user));
       dispatch({ type: 'LOGIN', payload: storedUser });
       return true
-    }
+    } else {
       return false
+    }
   }
 
   const register  = async (name, email, password) => {
