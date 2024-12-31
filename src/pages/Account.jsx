@@ -84,11 +84,11 @@ const Account = () => {
                     if (item.title === 'Logout') {
                       handleLogout();
                     } else if (item.title === 'Manage My Account') {
-                      navigate('/profile');
+                      return navigate('/profile');
                     }  else if (item.title === 'Manage My Orders') {
-                      navigate('/orders');
+                      return alert('Not yet implemented');
                     }  else if (item.title === 'Manage My Products') {
-                      navigate('/wishlist');
+                      return navigate('/wishlist');
                     } else {
                       alert('Not yet implemented');
                     }

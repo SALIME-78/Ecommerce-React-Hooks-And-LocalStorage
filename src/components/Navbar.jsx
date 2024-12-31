@@ -20,9 +20,9 @@ const Navbar = () => {
 
   const  navigate = useNavigate();
 
-  const categories = [
+ /*  const categories = [
     "Phones", "Computers", "Smartwatch", "Camera", "Headphones", "Gaming"
-  ];
+  ]; */
 
   const handleClick = (e) => {
     if (buttonRef.current && !buttonRef.current.contains(e.target)) {
@@ -34,6 +34,7 @@ const Navbar = () => {
     try {
       await logout();
       toast.success('Logout successful');
+      return navigate('/');
       
     } catch (error) {
       toast.error('Failed to logout');

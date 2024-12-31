@@ -1,14 +1,9 @@
-import { useAuth } from "../contexts/AuthContext"
-
 function Profile() { 
 
-  const { user} = useAuth();
-  const userDetails = JSON.parse(user);
-  console.log(userDetails)
-
- 
+  const user = JSON.parse(localStorage.getItem('user'))
+  
     return (
-        user &&<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        user && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
           <div className="flex justify-between items-center mb-8 space-y-4 sm:space-y-0">
             <div className="flex items-center gap-2 text-sm">
@@ -18,7 +13,7 @@ function Profile() {
             </div>
             <div className="flex items-center gap-2 mt-6">
               <span className="text-gray-600">Welcome!</span>
-              <span className="text-red-500">{userDetails.name}</span>
+              <span className="text-red-500">{user.name}</span>
             </div>
           </div>
     
@@ -51,7 +46,7 @@ function Profile() {
                   <label className="block text-gray-700 mb-2">First Name</label>
                   <input
                     type="text"
-                    defaultValue={userDetails.name}
+                    defaultValue={user.name}
                     className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
@@ -59,7 +54,7 @@ function Profile() {
                   <label className="block text-gray-700 mb-2">Last Name</label>
                   <input
                     type="text"
-                    defaultValue={userDetails.lastName}
+                    defaultValue={user.lastName}
                     className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
@@ -67,7 +62,7 @@ function Profile() {
                   <label className="block text-gray-700 mb-2">Email</label>
                   <input
                     type="email"
-                    defaultValue={userDetails.email}
+                    defaultValue={user.email}
                     className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
@@ -75,7 +70,7 @@ function Profile() {
                   <label className="block text-gray-700 mb-2">Address</label>
                   <input
                     type="text"
-                    defaultValue={userDetails.address}
+                    defaultValue={user.address}
                     className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
