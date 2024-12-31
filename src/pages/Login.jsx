@@ -30,6 +30,7 @@ const Login = () => {
     try {
       const success = await login(email, password);
       if (success) {
+        toast.success('Login successful');
         navigate('/');
       } else {
         return toast.error('Invalid email or password');
